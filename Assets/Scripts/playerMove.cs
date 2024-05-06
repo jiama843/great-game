@@ -12,17 +12,17 @@ public class playerMove : MonoBehaviour
     public float turnDelay = 0.1f;
     public float turnSpeed = 0.5f;
 
-    // Movement variables //
-    Direction currentDir = Direction.Forward;
- 
-    // states if the player is moving or waiting for movement input
-    bool isMoving = false;
 
-    // player input
+    //-- Player Input --//
     float forwardInput;
     float turnInput;
+
+    //-- Movement variables --//
+
+    // states if the player is moving or waiting for movement input
+    bool isMoving = false;
  
-    // keep track of player input
+    // start position before move is executed
     Vector3 startPos;
  
     // target-position after the move is executed
@@ -31,28 +31,14 @@ public class playerMove : MonoBehaviour
     // stores the progress of the current move in a range from 0f to 1f
     float moveProgress;
 
-    float remainingMoveDelay = 0f;
-
-    // Rotation variables //
-    // Rotation currentRot;
+    //-- Rotation variables --//
     bool isTurning = false;
     Quaternion startRot;
     Quaternion targetRot;
     float turnProgress;
-    // float remainingTurnDelay = 0f;
-
-    private void Start()
-    {
-        //controller = gameObject.AddComponent<CharacterController>();
-    }
 
     void Update()
     {
-        // Try x, y w/ vector2
-        // Debug.Log(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")));
-        // Debug.Log(isMoving);
-        //controller.Move(playerVelocity * Time.deltaTime);
-
         forwardInput =  Input.GetAxisRaw("Vertical");
         turnInput = Input.GetAxisRaw("Horizontal");
 
@@ -122,37 +108,11 @@ public class playerMove : MonoBehaviour
     private void startMove(){
         if (forwardInput != 0f)
         {
-            Direction oldDirection = currentDir;
-
-            #region update Direction
-            if (forwardInput == 1f)
-                currentDir = Direction.Forward;
-            if (forwardInput == -1f)
-                currentDir = Direction.Back;
-            #endregion
-
-            // Set move delay if the direction of input has changed
-            if (currentDir != oldDirection)
-            {
-                remainingMoveDelay = moveDelay;
-            }
-
-            // if the direction of the input does not change then the move-
-            // delay ticks down
-            if (remainingMoveDelay > 0f)
-            {
-                remainingMoveDelay -= Time.deltaTime;
-                return;
-            }
-
             // Set state to start move
             startPos = transform.position;
-            endPos = startPos + transform.forward * forwardInput * moveDistance; // new Vector3(startPos.x, startPos.y, startPos.z + forwardInput * moveDistance);
+            endPos = startPos + transform.forward * forwardInput * moveDistance;
             isMoving = true;
             moveProgress = 0f;
-
-            Debug.Log(startPos);
-            Debug.Log(endPos);
         }
     }
 
@@ -171,9 +131,4 @@ public class playerMove : MonoBehaviour
             transform.position = endPos;
         }
     }
-}
-
-enum Direction
-{
-    Forward, Back
 }
