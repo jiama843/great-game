@@ -37,9 +37,15 @@ public class playerMove : MonoBehaviour
     Quaternion targetRot;
     float turnProgress;
 
-    void Update()
+    private Rigidbody rb;
+
+    void Awake(){
+        rb = gameObject.GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
     {
-        forwardInput =  Input.GetAxisRaw("Vertical");
+        forwardInput = Input.GetAxisRaw("Vertical");
         turnInput = Input.GetAxisRaw("Horizontal");
 
         // TODO: Replace with state machine w/ 2 states (move, rotate);
@@ -123,12 +129,12 @@ public class playerMove : MonoBehaviour
 
             // linearly interpolate between our start- and end-positions
             // with the value of our moveProgress which is in range of [0, 1]
-            transform.position = Vector3.Lerp(startPos, endPos, moveProgress);
+            rb.MovePosition(Vector3.Lerp(startPos, endPos, moveProgress));
         }
         else
         {
             isMoving = false;
-            transform.position = endPos;
+            rb.position = endPos;
         }
     }
 }
