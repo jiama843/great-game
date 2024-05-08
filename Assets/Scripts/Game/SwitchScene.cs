@@ -6,36 +6,35 @@ using UnityEngine.SceneManagement;
 
 public class SwitchScene : MonoBehaviour
 {
-    public GameObject player;
+
+    public Animator transition;
+    public float transitionTime = 1f;
+
     // Update is called once per frame
     void Update()
     {
         // Scuffed check for collision since it isn't working
-        checkExitCondition();
+        CheckExitCondition();
     }
 
-    void checkExitCondition(){
+    void CheckExitCondition(){
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
 
         if (hitColliders.Any(collider => collider.tag == "Player"))
         {
-            SceneManager.LoadScene("Scenes/CleaningScene");
+            LoadNextScene();
         }
     }
 
-    // void onCollisionEnter(Collision collision){
-    //     Debug.Log("Scene Switch collision");
-    //     // if (other.tag == "BattleEnter")
-    //     // {
-    //     //     SceneManager.LoadScene("Scenes/CleaningScene");
-    //     // }
-    // }
+    void LoadNextScene(){
+        StartCoroutine(LoadLevel("Scenes/CleaningScene"));
+    }
 
-    // private void onTriggerEnter(Collider other){
-    //     Debug.Log("Scene Switch Trigger");
-    //     // if (other.tag == "BattleEnter")
-    //     // {
-    //     //     SceneManager.LoadScene("Scenes/CleaningScene");
-    //     // }
-    // }
+    IEnumerator LoadLevel(string sceneName){
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(sceneName);
+    }
 }
