@@ -39,6 +39,9 @@ public class playerMove : MonoBehaviour
 
     private Rigidbody rb;
 
+    //-- Collision Detection (for walls) --//
+    RaycastHit HitInfo;
+
     void Awake(){
         rb = gameObject.GetComponent<Rigidbody>();
     }
@@ -114,6 +117,9 @@ public class playerMove : MonoBehaviour
     private void startMove(){
         if (forwardInput != 0f)
         {
+            // If there is a wall in the direction of move, we skip
+            if(blockedByWall()) return;
+
             // Set state to start move
             startPos = transform.position;
             endPos = startPos + transform.forward * forwardInput * moveDistance;
@@ -136,5 +142,11 @@ public class playerMove : MonoBehaviour
             isMoving = false;
             rb.position = endPos;
         }
+    }
+
+    private bool blockedByWall(){
+        bool blockedAhead = Physics.Raycast(transform.position, transform.forward, out HitInfo, 10f) && forwardInput == 1f;
+        bool blockedBehind = Physics.Raycast(transform.position, transform.forward * -1, out HitInfo, 10f) && forwardInput == -1f;
+        return blockedAhead || blockedBehind;
     }
 }

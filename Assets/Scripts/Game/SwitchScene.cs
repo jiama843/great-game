@@ -17,7 +17,6 @@ public class SwitchScene : MonoBehaviour
     void checkExitCondition(){
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
 
-        Debug.Log(hitColliders.Length);
         if (hitColliders.Any(collider => collider.tag == "Player"))
         {
             SceneManager.LoadScene("Scenes/CleaningScene");
