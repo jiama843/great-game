@@ -6,10 +6,10 @@ public class playerMove : MonoBehaviour
 {
     public float walkSpeed = 1f;
     public float moveDelay = 0.1f;
-    public float moveDistance = 50f;
+    public float moveDistance = 10f;
 
     public Transform cameraPos;
-    public float turnDelay = 0.1f;
+    public float turnDelay = 0.05f;
     public float turnSpeed = 0.5f;
 
 
