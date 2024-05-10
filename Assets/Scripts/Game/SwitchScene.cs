@@ -10,6 +10,8 @@ public class SwitchScene : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
 
+    [SerializeField] string sceneToLoad = "Scenes/CleaningScene";
+
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +19,8 @@ public class SwitchScene : MonoBehaviour
         CheckExitCondition();
     }
 
-    void CheckExitCondition(){
+    void CheckExitCondition()
+    {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
 
         if (hitColliders.Any(collider => collider.tag == "Player"))
@@ -26,11 +29,14 @@ public class SwitchScene : MonoBehaviour
         }
     }
 
-    void LoadNextScene(){
-        StartCoroutine(LoadLevel("Scenes/CleaningScene"));
+    // Made public so buttons etc can access and use it
+    public void LoadNextScene()
+    {
+        StartCoroutine(LoadLevel(sceneToLoad));
     }
 
-    IEnumerator LoadLevel(string sceneName){
+    IEnumerator LoadLevel(string sceneName)
+    {
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
