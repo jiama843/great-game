@@ -3,27 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UIElements;
 
+// The Battle "game state" is handled here:
+// - Player does action on button press > Game state does monster checks and triggers anims/sprite changes
+// - Updates mana if magic is cast 
 public class BattleManager : MonoBehaviour
 {
+    [Header("Config")]
     [SerializeField] GameObject[] monsterPrefabs;
-    GameObject selectedMonster;
+
+
+    [Header("Magik")]
+    [SerializeField] GameObject manaManager;
+    [SerializeField] int atackCost = 1;
+    ManaController manaController;
+
+    GameObject monsterInstance;
     MonsterController monsterController;
 
     void Start()
     {
+        manaController = manaManager.GetComponent<ManaController>();
+
         GameObject prefabMonster = monsterPrefabs[UnityEngine.Random.Range(0, monsterPrefabs.Length)];
-
         // Store the instance of the prefab! monsterPrefabs[#] is a reference to a prefab!
-        selectedMonster = Instantiate(prefabMonster, new Vector3(0, 0, 0), Quaternion.identity);
+        monsterInstance = Instantiate(prefabMonster, new Vector3(0, 0, 0), Quaternion.identity);
 
-        monsterController = selectedMonster.GetComponent<MonsterController>();
+        monsterController = monsterInstance.GetComponent<MonsterController>();
 
     }
 
     public void HandlePlayerClick(string attackType)
     {
-        Debug.Log("Monster weakness" + monsterController.GetAffinitiy() + " Given: " + attackType);
+        if (attackType != "FEED")
+        {
+            manaController.DecreaseMana(atackCost);
+        }
 
         if (attackType != monsterController.GetAffinitiy())
         {
@@ -33,6 +49,5 @@ public class BattleManager : MonoBehaviour
         {
             monsterController.Heal();
         }
-
     }
 }
