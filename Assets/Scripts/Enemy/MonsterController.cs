@@ -18,7 +18,6 @@ public class MonsterController : MonoBehaviour
     // Since monsters are prefabs and instantiated by BattleManager, I think we need to use Awake
     void Awake()
     {
-        // TODO: Load sprites
         spriteRenderer.sprite = defaultSprite;
     }
 
@@ -48,7 +47,6 @@ public class MonsterController : MonoBehaviour
 
     public void Heal()
     {
-        Debug.Log("Healed!");
         spriteRenderer.sprite = healedSprite;
         // TODO: Wait and transition back to game
     }
