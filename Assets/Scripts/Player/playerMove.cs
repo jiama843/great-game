@@ -122,6 +122,7 @@ public class playerMove : MonoBehaviour
 
             // Set state to start move
             startPos = transform.position;
+
             endPos = startPos + transform.forward * forwardInput * moveDistance;
             isMoving = true;
             moveProgress = 0f;
@@ -131,6 +132,7 @@ public class playerMove : MonoBehaviour
     private void continueMove(){
         if (moveProgress < 1f)
         {
+
             moveProgress += Time.deltaTime * walkSpeed;
 
             // linearly interpolate between our start- and end-positions
