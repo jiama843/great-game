@@ -12,6 +12,7 @@ public class BattleManager : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] GameObject[] monsterPrefabs;
+    [SerializeField] Canvas canvas;
 
 
     [Header("Magik")]
@@ -28,7 +29,10 @@ public class BattleManager : MonoBehaviour
 
         GameObject prefabMonster = monsterPrefabs[UnityEngine.Random.Range(0, monsterPrefabs.Length)];
         // Store the instance of the prefab! monsterPrefabs[#] is a reference to a prefab!
-        monsterInstance = Instantiate(prefabMonster, new Vector3(0, 0, 0), Quaternion.identity);
+        monsterInstance = Instantiate(prefabMonster, new Vector3(100, 100, 0), Quaternion.identity);
+
+        monsterInstance.transform.SetParent(canvas.transform, false);
+        monsterInstance.transform.localScale = new Vector3(1, 1, 1);
 
         monsterController = monsterInstance.GetComponent<MonsterController>();
 

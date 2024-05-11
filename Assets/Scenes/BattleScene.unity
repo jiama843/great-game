@@ -267,6 +267,7 @@ MonoBehaviour:
   - {fileID: 6833406382269588299, guid: 72fdeb40139a3364ba2929b94da0b28d, type: 3}
   - {fileID: 8343820433203188235, guid: a4f70c513c44ff349924a99b62ea0671, type: 3}
   - {fileID: 1216070233691278283, guid: f656eed194524e344b5ccd0b420433ba, type: 3}
+  canvas: {fileID: 1615732286}
   manaManager: {fileID: 628586785}
   atackCost: 1
 --- !u!4 &69022779
@@ -1316,7 +1317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mana: 10/10 '
+  m_text: 'Mana: 6/10 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

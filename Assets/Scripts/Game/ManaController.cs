@@ -26,7 +26,7 @@ public class ManaController : MonoBehaviour
 
     public void DecreaseMana(int amount)
     {
-        manaSO.manaAmount -= amount;
+        manaSO.DecreaseMana(amount);
         slider.value = manaSO.manaAmount;
         SetManaText();
     }
