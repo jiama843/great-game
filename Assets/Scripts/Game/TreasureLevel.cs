@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TreasureLevel : MonoBehaviour
@@ -22,7 +23,9 @@ public class TreasureLevel : MonoBehaviour
     {
         //set goal for the win
         SetTargetItems();
-        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
     }
 
     // Update is called once per frame
@@ -82,7 +85,12 @@ public class TreasureLevel : MonoBehaviour
 
             int keys = PlayerPrefs.GetInt("KEYS", 0);
             PlayerPrefs.SetInt("KEYS", keys--);
-            
+
+            //set game as complete
+            GamesTracker.SetItemCompletionStatus(PlayerPrefs.GetString("itemID"), true);
+            //retun to game
+            SceneManager.LoadScene("TileTestScene");
+
         }
         else
         {

@@ -20,7 +20,7 @@ public class playerMove : MonoBehaviour
     //-- Movement variables --//
 
     // states if the player is moving or waiting for movement input
-    bool isMoving = false;
+    public bool isMoving = false;
  
     // start position before move is executed
     Vector3 startPos;
@@ -32,7 +32,7 @@ public class playerMove : MonoBehaviour
     float moveProgress;
 
     //-- Rotation variables --//
-    bool isTurning = false;
+    public bool isTurning = false;
     Quaternion startRot;
     Quaternion targetRot;
     float turnProgress;

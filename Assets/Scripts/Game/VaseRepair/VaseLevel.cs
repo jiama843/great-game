@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class VaseLevel : MonoBehaviour
 {
@@ -9,7 +11,8 @@ public class VaseLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
@@ -38,6 +41,11 @@ public class VaseLevel : MonoBehaviour
 
             int jars = PlayerPrefs.GetInt("SLIME_JARS", 0);
             PlayerPrefs.SetInt("SLIME_JARS", jars--);
+
+            //set game as complete
+            GamesTracker.SetItemCompletionStatus(PlayerPrefs.GetString("itemID"), true);
+            //return
+            SceneManager.LoadScene("TileTestScene");
         }
         else {
             Debug.Log("Pieces are not in their places!");
