@@ -33,7 +33,6 @@ public class BattleManager : MonoBehaviour
 
         // Make monster GO an child of canvas, so it's rendered according to canvas' space (and in player's view)
         monsterInstance.transform.SetParent(canvas.transform, false);
-        monsterInstance.transform.localScale = new Vector3(1, 1, 1);
 
         monsterController = monsterInstance.GetComponent<MonsterController>();
     }
