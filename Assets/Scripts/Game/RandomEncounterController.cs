@@ -17,7 +17,7 @@ public class RandomEncounterController : MonoBehaviour
     void Awake()
     {
         switchScene = GetComponent<SwitchScene>();
-        numEncounters = PlayerPrefs.GetInt("NUM_ENCOUNTERS", 0);
+        PlayerPrefs.SetInt("NUM_ENCOUNTERS", 0);
         Debug.Log("numEncounters" + numEncounters);
     }
 
