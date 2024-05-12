@@ -8,7 +8,7 @@ public class PieceSpawn : MonoBehaviour
     public GameObject[] pieces;
 
     private int numberOfPieces;
-    void Start()
+    void Awake()
     {
         numberOfPieces = pieces.Length;
         SpawnPieces();
@@ -38,9 +38,9 @@ public class PieceSpawn : MonoBehaviour
             int randomPieceIndex = Random.Range(0, pieces.Length);
 
             // Get the selected spawn location
-            Vector3 spawnPosition = chosenSpawnLoc.transform.position;
+            Vector3 spawnPosition = chosenSpawnLoc.transform.localPosition;
 
-            pieces[randomPieceIndex].transform.position = spawnPosition;
+            pieces[randomPieceIndex].transform.localPosition = spawnPosition;
 
         }
     }

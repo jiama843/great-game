@@ -35,6 +35,9 @@ public class VaseLevel : MonoBehaviour
         {
             //WIN
             Debug.Log("WIN");
+
+            int jars = PlayerPrefs.GetInt("SLIME_JARS", 0);
+            PlayerPrefs.SetInt("SLIME_JARS", jars--);
         }
         else {
             Debug.Log("Pieces are not in their places!");

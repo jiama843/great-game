@@ -79,6 +79,9 @@ public class TreasureLevel : MonoBehaviour
         if (itemsMatch && coinsMatch)
         {
             Debug.Log("Congratulations! You win!");
+
+            int keys = PlayerPrefs.GetInt("KEYS", 0);
+            PlayerPrefs.SetInt("KEYS", keys--);
             
         }
         else
