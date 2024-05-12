@@ -5,6 +5,7 @@ using UnityEngine;
 public class GamesTracker : MonoBehaviour
 {
     GamesTracker instance;
+
     public static Dictionary<string, bool> itemCompletionStatus = new Dictionary<string, bool>();
     void Awake()
     {

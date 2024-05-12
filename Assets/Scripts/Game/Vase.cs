@@ -19,6 +19,12 @@ public class Vase : MonoBehaviour
     public string requiredGameSceneName = "";
 
     private SpriteRenderer spriteRenderer;
+
+    private Vector3 playerPosition;
+    private Quaternion playerRotation;
+
+    private GameObject player;
+    public GameObject retunPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +40,9 @@ public class Vase : MonoBehaviour
         {
             //reset minigame var and complete this item
             isComplete = true;
+
             
+
         }
         SpriteCheck();
         if (Input.GetButtonDown("Interact") && isInteractable) //&& PlayerPrefs.GetInt(requiredItem, 0) > 0 
@@ -47,6 +55,18 @@ public class Vase : MonoBehaviour
             {
                 //add to name buffer
                 PlayerPrefs.SetString("itemID", itemID);
+                //save player pos and rot 
+                playerPosition = retunPoint.transform.position;
+                playerRotation = player.transform.rotation;
+
+                PlayerPrefs.SetFloat("PlayerPosX", playerPosition.x);
+                PlayerPrefs.SetFloat("PlayerPosY", playerPosition.y);
+                PlayerPrefs.SetFloat("PlayerPosZ", playerPosition.z);
+
+                PlayerPrefs.SetFloat("PlayerRotX", playerRotation.x);
+                PlayerPrefs.SetFloat("PlayerRotY", playerRotation.y);
+                PlayerPrefs.SetFloat("PlayerRotZ", playerRotation.z);
+                PlayerPrefs.SetFloat("PlayerRotW", playerRotation.w);
                 //get to scene
                 SceneManager.LoadScene(requiredGameSceneName);
             }
@@ -61,7 +81,10 @@ public class Vase : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInteractable = true;
+            player = other.gameObject;
+
         }
+        
     }
 
     private void OnTriggerExit(Collider other)
