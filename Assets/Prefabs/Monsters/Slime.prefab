@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affinity: FEED
-  droppedItem: SLIME_JAR
+  droppedItemName: SLIME_JAR
   defaultSprite: {fileID: 21300000, guid: 7a7e2a3e6bd699c49ae4d3fbfe2d8026, type: 3}
   damagedSprite: {fileID: 21300000, guid: 7fe5b1c7a8f9e8a42b38f01864e2ca1c, type: 3}
   healedSprite: {fileID: 21300000, guid: 811b0063353a3ab4584cc6e41085b2e0, type: 3}

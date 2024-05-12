@@ -62,6 +62,17 @@ public class BattleManager : MonoBehaviour
         else
         {
             monsterController.Heal();
+            string droppedItemName = monsterController.GetDroppedItemName();
+
+            if (!String.IsNullOrEmpty(droppedItemName))
+            {
+                int currentAmountInInventory = PlayerPrefs.GetInt(droppedItemName, 0);
+                PlayerPrefs.SetInt(droppedItemName, currentAmountInInventory + 1);
+                // Leaving in case we need to debug
+                // Debug.Log(" current" + currentAmountInInventory);
+                // Debug.Log("Update" + PlayerPrefs.GetInt(droppedItemName, 0));
+            }
+
             StartCoroutine(GoBackToDungeon());
         }
     }
