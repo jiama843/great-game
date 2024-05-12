@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    [SerializeField] string monsterName;
     [SerializeField] string affinity;
     [SerializeField] string droppedItem;
 
