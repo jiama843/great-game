@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class playerMove : MonoBehaviour
 {
+    // Sorry Braus for dirtying your clean file... ^^; Just wanted a quick and dirty way to connect the random encounter
+    RandomEncounterController randomEncounterController;
     public float walkSpeed = 1f;
     public float moveDelay = 0.1f;
     public float moveDistance = 10f;
@@ -21,13 +23,13 @@ public class playerMove : MonoBehaviour
 
     // states if the player is moving or waiting for movement input
     public bool isMoving = false;
- 
+
     // start position before move is executed
     public Vector3 startPos;
- 
+
     // target-position after the move is executed
     public Vector3 endPos;
- 
+
     // stores the progress of the current move in a range from 0f to 1f
     float moveProgress;
 
@@ -45,21 +47,23 @@ public class playerMove : MonoBehaviour
 
     private Vector3 playerPosition;
     private Quaternion playerRotation;
-    void Awake(){
+    void Awake()
+    {
         rb = gameObject.GetComponent<Rigidbody>();
+        randomEncounterController = GetComponent<RandomEncounterController>();
     }
     private void Start()
     {
         int layerMask = LayerMask.GetMask("Wall");
 
-        if(GamesTracker.itemCompletionStatus.Count > 0)
+        if (GamesTracker.itemCompletionStatus.Count > 0)
         {
             playerPosition = new Vector3(PlayerPrefs.GetFloat("PlayerPosX"), PlayerPrefs.GetFloat("PlayerPosY"), PlayerPrefs.GetFloat("PlayerPosZ"));
             playerRotation = new Quaternion(PlayerPrefs.GetFloat("PlayerRotX"), PlayerPrefs.GetFloat("PlayerRotY"), PlayerPrefs.GetFloat("PlayerRotZ"), PlayerPrefs.GetFloat("PlayerRotW"));
             transform.position = playerPosition;
             transform.rotation = playerRotation;
         }
-        
+
     }
 
     void FixedUpdate()
@@ -72,7 +76,8 @@ public class playerMove : MonoBehaviour
         if (!isMoving) handleTurn();
     }
 
-    private void handleTurn(){
+    private void handleTurn()
+    {
         if (!isTurning)
         {
             startTurn();
@@ -83,7 +88,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void startTurn(){
+    private void startTurn()
+    {
         if (turnInput != 0f)
         {
             // IMPORTANT: notice the eulerAngles conversion
@@ -104,7 +110,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void continueTurn(){
+    private void continueTurn()
+    {
         if (turnProgress < 1f)
         {
             turnProgress += Time.deltaTime * turnSpeed;
@@ -119,7 +126,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void handleMove(){
+    private void handleMove()
+    {
         if (!isMoving)
         {
             startMove();
@@ -130,11 +138,12 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void startMove(){
+    private void startMove()
+    {
         if (forwardInput != 0f)
         {
             // If there is a wall in the direction of move, we skip
-            if(blockedByWall()) return;
+            if (blockedByWall()) return;
 
             // Set state to start move
             startPos = transform.position;
@@ -145,7 +154,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void continueMove(){
+    private void continueMove()
+    {
         if (moveProgress < 1f)
         {
 
@@ -159,10 +169,12 @@ public class playerMove : MonoBehaviour
         {
             isMoving = false;
             rb.position = endPos;
+            randomEncounterController.AttemptEncounter();
         }
     }
 
-    private bool blockedByWall(){
+    private bool blockedByWall()
+    {
         bool blockedAhead = Physics.Raycast(transform.position, transform.forward, out HitInfo, 10f) && forwardInput == 1f;
         //bool blockedBehind = Physics.Raycast(transform.position, transform.forward * -1, out HitInfo, 10f) && forwardInput == -1f;
         //debug land
@@ -172,7 +184,7 @@ public class playerMove : MonoBehaviour
         {
             Debug.Log("Ray check " + HitInfo.collider.name);
         }
-        
+
         return blockedAhead;
     }
 }
