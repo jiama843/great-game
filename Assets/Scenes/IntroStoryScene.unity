@@ -631,7 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 590976208}
   transitionTime: 1
-  sceneToLoad: Scenes/TestScene
+  sceneToLoad: Scenes/TileTestScene
 --- !u!1 &1470930263
 GameObject:
   m_ObjectHideFlags: 0
