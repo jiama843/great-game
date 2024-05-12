@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class playerMove : MonoBehaviour
 {
+    // Sorry Braus for dirtying your clean file... ^^; Just wanted a quick and dirty way to connect the random encounter
+    RandomEncounterController randomEncounterController;
+
     public float walkSpeed = 1f;
     public float moveDelay = 0.1f;
     public float moveDistance = 10f;
@@ -21,13 +24,13 @@ public class playerMove : MonoBehaviour
 
     // states if the player is moving or waiting for movement input
     bool isMoving = false;
- 
+
     // start position before move is executed
     Vector3 startPos;
- 
+
     // target-position after the move is executed
     Vector3 endPos;
- 
+
     // stores the progress of the current move in a range from 0f to 1f
     float moveProgress;
 
@@ -42,8 +45,10 @@ public class playerMove : MonoBehaviour
     //-- Collision Detection (for walls) --//
     RaycastHit HitInfo;
 
-    void Awake(){
+    void Awake()
+    {
         rb = gameObject.GetComponent<Rigidbody>();
+        randomEncounterController = GetComponent<RandomEncounterController>();
     }
 
     void FixedUpdate()
@@ -56,7 +61,8 @@ public class playerMove : MonoBehaviour
         if (!isMoving) handleTurn();
     }
 
-    private void handleTurn(){
+    private void handleTurn()
+    {
         if (!isTurning)
         {
             startTurn();
@@ -67,7 +73,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void startTurn(){
+    private void startTurn()
+    {
         if (turnInput != 0f)
         {
             // IMPORTANT: notice the eulerAngles conversion
@@ -88,7 +95,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void continueTurn(){
+    private void continueTurn()
+    {
         if (turnProgress < 1f)
         {
             turnProgress += Time.deltaTime * turnSpeed;
@@ -103,7 +111,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void handleMove(){
+    private void handleMove()
+    {
         if (!isMoving)
         {
             startMove();
@@ -114,11 +123,12 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void startMove(){
+    private void startMove()
+    {
         if (forwardInput != 0f)
         {
             // If there is a wall in the direction of move, we skip
-            if(blockedByWall()) return;
+            if (blockedByWall()) return;
 
             // Set state to start move
             startPos = transform.position;
@@ -129,7 +139,8 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    private void continueMove(){
+    private void continueMove()
+    {
         if (moveProgress < 1f)
         {
 
@@ -143,10 +154,12 @@ public class playerMove : MonoBehaviour
         {
             isMoving = false;
             rb.position = endPos;
+            randomEncounterController.AttemptEncounter();
         }
     }
 
-    private bool blockedByWall(){
+    private bool blockedByWall()
+    {
         bool blockedAhead = Physics.Raycast(transform.position, transform.forward, out HitInfo, 10f) && forwardInput == 1f;
         bool blockedBehind = Physics.Raycast(transform.position, transform.forward * -1, out HitInfo, 10f) && forwardInput == -1f;
         return blockedAhead || blockedBehind;
