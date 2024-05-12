@@ -20,30 +20,46 @@ public class playerMove : MonoBehaviour
     //-- Movement variables --//
 
     // states if the player is moving or waiting for movement input
-    bool isMoving = false;
+    public bool isMoving = false;
  
     // start position before move is executed
-    Vector3 startPos;
+    public Vector3 startPos;
  
     // target-position after the move is executed
-    Vector3 endPos;
+    public Vector3 endPos;
  
     // stores the progress of the current move in a range from 0f to 1f
     float moveProgress;
 
     //-- Rotation variables --//
-    bool isTurning = false;
+    public bool isTurning = false;
     Quaternion startRot;
     Quaternion targetRot;
     float turnProgress;
 
     private Rigidbody rb;
+    private int layerMask;
 
     //-- Collision Detection (for walls) --//
     RaycastHit HitInfo;
 
+    private Vector3 playerPosition;
+    private Quaternion playerRotation;
     void Awake(){
         rb = gameObject.GetComponent<Rigidbody>();
+    }
+    private void Start()
+    {
+        int layerMask = LayerMask.GetMask("Wall");
+
+        if(GamesTracker.itemCompletionStatus.Count > 0)
+        {
+            playerPosition = new Vector3(PlayerPrefs.GetFloat("PlayerPosX"), PlayerPrefs.GetFloat("PlayerPosY"), PlayerPrefs.GetFloat("PlayerPosZ"));
+            playerRotation = new Quaternion(PlayerPrefs.GetFloat("PlayerRotX"), PlayerPrefs.GetFloat("PlayerRotY"), PlayerPrefs.GetFloat("PlayerRotZ"), PlayerPrefs.GetFloat("PlayerRotW"));
+            transform.position = playerPosition;
+            transform.rotation = playerRotation;
+        }
+        
     }
 
     void FixedUpdate()
@@ -148,7 +164,15 @@ public class playerMove : MonoBehaviour
 
     private bool blockedByWall(){
         bool blockedAhead = Physics.Raycast(transform.position, transform.forward, out HitInfo, 10f) && forwardInput == 1f;
-        bool blockedBehind = Physics.Raycast(transform.position, transform.forward * -1, out HitInfo, 10f) && forwardInput == -1f;
-        return blockedAhead || blockedBehind;
+        //bool blockedBehind = Physics.Raycast(transform.position, transform.forward * -1, out HitInfo, 10f) && forwardInput == -1f;
+        //debug land
+        Debug.DrawRay(transform.position, transform.forward * 10f, Color.red); // Forward raycast
+        Debug.DrawRay(transform.position, -transform.forward * 10f, Color.blue); // Backward raycast
+        if (blockedAhead && HitInfo.collider.name != null)
+        {
+            Debug.Log("Ray check " + HitInfo.collider.name);
+        }
+        
+        return blockedAhead;
     }
 }

@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Draggable
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -11,7 +13,7 @@ TagManager:
   - SceneLayer
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 
@@ -41,9 +43,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+<<<<<<< HEAD
   - name: UI
     uniqueID: 2270226389
     locked: 0
   - name: New Layer 2
     uniqueID: 3664739587
+=======
+  - name: VaseSiluette
+    uniqueID: 2803228469
+    locked: 0
+  - name: VasePieces
+    uniqueID: 1294734639
+>>>>>>> vase_repair-braus
     locked: 0
