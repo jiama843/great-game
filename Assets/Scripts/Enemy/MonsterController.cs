@@ -3,7 +3,10 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] string affinity;
-    [SerializeField] string droppedItem;
+
+    // skeleton -> KEY
+    // slime -> SLIME_JAR
+    [SerializeField] string droppedItemName;
 
     [Header("Sprites")]
     [SerializeField] Sprite defaultSprite;
@@ -30,6 +33,11 @@ public class MonsterController : MonoBehaviour
     public string GetAffinitiy()
     {
         return affinity;
+    }
+
+    public string GetDroppedItemName()
+    {
+        return droppedItemName;
     }
 
     // Since monsters have 2 life, we can just show the damaged sprite 

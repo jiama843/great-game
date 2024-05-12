@@ -267,7 +267,7 @@ MonoBehaviour:
   monsterPrefabs:
   - {fileID: 8343820433203188235, guid: a4f70c513c44ff349924a99b62ea0671, type: 3}
   - {fileID: 1216070233691278283, guid: f656eed194524e344b5ccd0b420433ba, type: 3}
-  - {fileID: 5273976232984801705, guid: 0d2510fb5e0dc80499c2c4a0b0de7657, type: 3}
+  - {fileID: 7945435139891814586, guid: cdceb42fdd7b0bd429409ac3fef79c09, type: 3}
   canvas: {fileID: 1615732286}
   manaManager: {fileID: 628586785}
   atackCost: 1
