@@ -168,9 +168,10 @@ public class playerMove : MonoBehaviour
         //debug land
         Debug.DrawRay(transform.position, transform.forward * 10f, Color.red); // Forward raycast
         Debug.DrawRay(transform.position, -transform.forward * 10f, Color.blue); // Backward raycast
-        if (blockedAhead && HitInfo.collider.name != null)
+        if (blockedAhead && HitInfo.collider.CompareTag("Finish"))
         {
             Debug.Log("Ray check " + HitInfo.collider.name);
+            return false;
         }
         
         return blockedAhead;
