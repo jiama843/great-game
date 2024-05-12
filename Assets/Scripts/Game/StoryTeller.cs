@@ -1,33 +1,53 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using System.Linq;
+
+[System.Serializable]
+public class StorySlide {
+    public Sprite bg;
+    public List<string> textToType = new List<string>();
+}
 
 // Stolen from:
 // https://discussions.unity.com/t/how-to-make-text-that-is-writen-automatically-letter-by-letter/15945/6
 public class StoryTeller : MonoBehaviour
 {
 
-
     [Header("Config")]
     [SerializeField] float letterPause = 0.2f;
     [SerializeField] TextMeshProUGUI textComponent;
+    public Image slideDisplay;
 
-    // public AudioClip typeSound1;
+    public AudioSource flipSound;
+    // public AudioClip flipSound;
     // public AudioClip typeSound2;
 
-    [Header("Text & Images")]
-    [SerializeField] string[] textToType;
-
+    [Header("Story Slides")]
+    public List<StorySlide> storyslides = new List<StorySlide>();
 
     string message;
     bool isTyping = false;
-    int currentLineIndex = 0;
     Coroutine typingCoroutine;
 
+    private StorySlide currentStorySlide;
+    private string currentTextToType;
 
     void Start()
     {
-        ClearAndStartTyping();
+        // We're assuming all this shit exists
+        currentStorySlide = storyslides.First();
+        flipSound.Play();
+        slideDisplay.sprite = currentStorySlide.bg;
+
+        // TODO: Remove this and uncomment the code under it if we transition away from image only
+        storyslides.RemoveAt(0);
+
+        // currentTextToType = currentStorySlide.textToType.First();
+        // ClearAndStartTyping();
+        // currentStorySlide.textToType.RemoveAt(0);
     }
 
     void Update()
@@ -36,23 +56,39 @@ public class StoryTeller : MonoBehaviour
 
         if (isLeftClickPressed)
         {
-            // Move to next line
-            if (!isTyping && currentLineIndex < textToType.Length - 1)
+            if (storyslides.Count == 0) GetComponent<SwitchScene>().LoadNextScene();
+
+            currentStorySlide = storyslides.First();
+
+            if (currentStorySlide.textToType.Count == 0)
             {
-                currentLineIndex += 1;
-                ClearAndStartTyping();
+                switchStorySlide();
+                return;
             }
-            // Stop typing and show entire line.
-            else if (isTyping)
-            {
-                StopCoroutine(typingCoroutine);
-                textComponent.text = textToType[currentLineIndex];
-                isTyping = false;
-            }
-            else
-            {
-                GetComponent<SwitchScene>().LoadNextScene();
-            }
+
+            currentTextToType = currentStorySlide.textToType.First();
+            handleTypeText();
+        }
+    }
+
+    void switchStorySlide(){
+        storyslides.RemoveAt(0);
+        
+        //switch current image sprite
+        flipSound.Play();
+        slideDisplay.sprite = currentStorySlide.bg;
+    }
+
+    void handleTypeText(){
+        if (!isTyping)
+        {
+            ClearAndStartTyping();
+            currentStorySlide.textToType.RemoveAt(0);
+        }
+        else
+        {
+            StopCoroutine(typingCoroutine);
+            isTyping = false;
         }
     }
 
@@ -60,12 +96,12 @@ public class StoryTeller : MonoBehaviour
     {
         isTyping = true;
         textComponent.text = "";
-        typingCoroutine = StartCoroutine(TypeText(currentLineIndex));
+        typingCoroutine = StartCoroutine(TypeText());
     }
 
-    IEnumerator TypeText(int currentLineIndex)
+    IEnumerator TypeText()
     {
-        message = textToType[currentLineIndex];
+        message = currentTextToType;
 
         foreach (char letter in message.ToCharArray())
         {
