@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974addc8d8c9012458974e827d8df6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterName: 
   affinity: MOON
   droppedItem: 
+  spawnPointInCanvas: {x: 100, y: 20, z: 0}
   defaultSprite: {fileID: 21300000, guid: e11295c2d7ebd35418d40f50f1d4925c, type: 3}
   damagedSprite: {fileID: 21300000, guid: 1b2e742ad750b33478c8cad45fd81332, type: 3}
   healedSprite: {fileID: 21300000, guid: 519864fbe52353647bea174385b1e236, type: 3}
