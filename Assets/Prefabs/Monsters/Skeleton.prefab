@@ -101,6 +101,6 @@ MonoBehaviour:
   affinity: DARK
   droppedItem: 
   defaultSprite: {fileID: 21300000, guid: 127248b415976cc42ae7ae18f28e844a, type: 3}
-  damagedSprite: {fileID: 21300000, guid: 8be3e9dc3c5a9134eb82a921fdc12c55, type: 3}
+  damagedSprite: {fileID: 21300000, guid: 2b6dc3ea4d21a004fbfa2216713749fe, type: 3}
   healedSprite: {fileID: 21300000, guid: c80b3444c9180e54d9a2538599fdbb36, type: 3}
   spriteRenderer: {fileID: 239164879062244827}
