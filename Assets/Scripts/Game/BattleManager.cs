@@ -23,11 +23,17 @@ public class BattleManager : MonoBehaviour
     GameObject monsterInstance;
     MonsterController monsterController;
 
+    SwitchScene switchScene;
+
     void Start()
     {
+        switchScene = GetComponent<SwitchScene>();
         manaController = manaManager.GetComponent<ManaController>();
 
+
         GameObject prefabMonster = monsterPrefabs[UnityEngine.Random.Range(0, monsterPrefabs.Length)];
+
+
         // Store the instance of the prefab! monsterPrefabs[#] is a reference to a prefab!
         monsterInstance = Instantiate(prefabMonster, new Vector3(0, 0, 0), Quaternion.identity);
 
@@ -47,10 +53,23 @@ public class BattleManager : MonoBehaviour
         if (attackType != monsterController.GetAffinitiy())
         {
             monsterController.TakeDamage();
+
+            if (monsterController.GetIsDead())
+            {
+                StartCoroutine(GoBackToDungeon());
+            }
         }
         else
         {
             monsterController.Heal();
+            StartCoroutine(GoBackToDungeon());
         }
+    }
+
+    IEnumerator GoBackToDungeon()
+    {
+        yield return new WaitForSeconds(3);
+        Debug.Log("going back");
+        switchScene.LoadNextScene();
     }
 }

@@ -9,13 +9,22 @@ public class MonsterController : MonoBehaviour
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Sprite damagedSprite;
     [SerializeField] Sprite healedSprite;
+
+    [Header("Particle Effects")]
+    ParticleSystem healEffect;
+    ParticleSystem damageEffect;
+
     int health = 2;
+    bool isDead = false;
     [SerializeField] SpriteRenderer spriteRenderer;
+
 
     // Since monsters are prefabs and instantiated by BattleManager, I think we need to use Awake
     void Awake()
     {
         spriteRenderer.sprite = defaultSprite;
+        healEffect = GameObject.Find("HealEffect").GetComponent<ParticleSystem>();
+        damageEffect = GameObject.Find("DamageEffect").GetComponent<ParticleSystem>();
     }
 
     public string GetAffinitiy()
@@ -28,11 +37,12 @@ public class MonsterController : MonoBehaviour
     public void TakeDamage()
     {
         health -= 1;
+        damageEffect.Play();
 
         if (health == 0)
         {
-            PlayDeathAnimation();
-            // TODO: Wait and transition back to game
+
+            isDead = true;
         }
         else
         {
@@ -40,11 +50,14 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    void PlayDeathAnimation() { }
-
     public void Heal()
     {
+        healEffect.Play();
         spriteRenderer.sprite = healedSprite;
-        // TODO: Wait and transition back to game
+    }
+
+    public bool GetIsDead()
+    {
+        return isDead;
     }
 }
