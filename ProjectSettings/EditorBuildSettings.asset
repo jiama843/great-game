@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/OutroStoryScene.unity
+    guid: 57e9e222aa491400d9c52b03f6167369
   m_configObjects: {}
