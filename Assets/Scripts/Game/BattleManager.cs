@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UI;
+
+
 using UnityEngine;
-using UnityEngine.UIElements;
+
+
 
 // The Battle "game state" is handled here:
 // - Player does action on button press > Game state does monster checks and triggers anims/sprite changes
@@ -30,6 +31,8 @@ public class BattleManager : MonoBehaviour
         switchScene = GetComponent<SwitchScene>();
         manaController = manaManager.GetComponent<ManaController>();
 
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
 
         GameObject prefabMonster = monsterPrefabs[UnityEngine.Random.Range(0, monsterPrefabs.Length)];
 

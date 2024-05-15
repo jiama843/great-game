@@ -6,30 +6,54 @@ using UnityEngine;
 public class RandomEncounterController : MonoBehaviour
 {
     [Tooltip("This will be 1 / #. Example if given \"10\", player has 1/10 chance of random encounter.")]
-    [SerializeField] int chanceDenominator = 7;
+    public int chanceDenominator = 7;
     [Tooltip("Since I can't figure out how to save position, just limit encounters so player can freely move through dungeon")]
-    [SerializeField] int maxEncounters = 2;
+    public int maxEncounters = 2;
 
     // Serialized for testing and visibility...
     [SerializeField] int numEncounters = 0;
     SwitchScene switchScene;
 
+    private Vector3 playerPosition;
+    private Quaternion playerRotation;
+
     void Awake()
     {
         switchScene = GetComponent<SwitchScene>();
         numEncounters = PlayerPrefs.GetInt("NUM_ENCOUNTERS", 0);
-        Debug.Log("numEncounters" + numEncounters);
+        
     }
 
     public void AttemptEncounter()
     {
         Debug.Log("Checking encounter...");
-        if (numEncounters < maxEncounters && (UnityEngine.Random.Range(1, chanceDenominator + 1) == chanceDenominator))
+        int numEncounters = PlayerPrefs.GetInt("NUM_ENCOUNTERS", 0);
+        Debug.Log("numEncounters" + numEncounters);
+        if (numEncounters < maxEncounters && RandChance(chanceDenominator))
         {
-            PlayerPrefs.SetInt("NUM_ENCOUNTERS", numEncounters + 1);
+            numEncounters++;
 
+            PlayerPrefs.SetInt("NUM_ENCOUNTERS", numEncounters);
+            playerPosition = this.transform.position;
+            playerRotation = this.transform.rotation;
+
+            PlayerPrefs.SetFloat("PlayerPosX", playerPosition.x);
+            PlayerPrefs.SetFloat("PlayerPosY", playerPosition.y);
+            PlayerPrefs.SetFloat("PlayerPosZ", playerPosition.z);
+
+            PlayerPrefs.SetFloat("PlayerRotX", playerRotation.x);
+            PlayerPrefs.SetFloat("PlayerRotY", playerRotation.y);
+            PlayerPrefs.SetFloat("PlayerRotZ", playerRotation.z);
+            PlayerPrefs.SetFloat("PlayerRotW", playerRotation.w);
             Debug.Log("Entering battle!");
             switchScene.LoadNextScene();
         }
+    }
+
+    private bool RandChance(int chanceDenominator)
+    {
+        int ran = UnityEngine.Random.Range(1, chanceDenominator + 1);
+        Debug.Log("Random chanse " + ran);
+        return  ran == chanceDenominator;
     }
 }

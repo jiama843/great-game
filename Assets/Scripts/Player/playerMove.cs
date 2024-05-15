@@ -63,6 +63,14 @@ public class playerMove : MonoBehaviour
             transform.position = playerPosition;
             transform.rotation = playerRotation;
         }
+        int nums = PlayerPrefs.GetInt("NUM_ENCOUNTERS", 0);
+        if ( nums > 0)
+        {
+            playerPosition = new Vector3(PlayerPrefs.GetFloat("PlayerPosX"), PlayerPrefs.GetFloat("PlayerPosY"), PlayerPrefs.GetFloat("PlayerPosZ"));
+            playerRotation = new Quaternion(PlayerPrefs.GetFloat("PlayerRotX"), PlayerPrefs.GetFloat("PlayerRotY"), PlayerPrefs.GetFloat("PlayerRotZ"), PlayerPrefs.GetFloat("PlayerRotW"));
+            transform.position = playerPosition;
+            transform.rotation = playerRotation;
+        }
 
     }
 
@@ -74,6 +82,8 @@ public class playerMove : MonoBehaviour
         // TODO: Replace with state machine w/ 2 states (move, rotate);
         if (!isTurning) handleMove();
         if (!isMoving) handleTurn();
+
+        
     }
 
     private void handleTurn()
@@ -135,6 +145,7 @@ public class playerMove : MonoBehaviour
         else
         {
             continueMove();
+           
         }
     }
 
@@ -142,6 +153,7 @@ public class playerMove : MonoBehaviour
     {
         if (forwardInput != 0f)
         {
+
             // If there is a wall in the direction of move, we skip
             if (blockedByWall()) return;
 
@@ -169,7 +181,12 @@ public class playerMove : MonoBehaviour
         {
             isMoving = false;
             rb.position = endPos;
-            randomEncounterController.AttemptEncounter();
+
+            if (!isMoving && !isTurning)
+            {
+                randomEncounterController.AttemptEncounter();
+            }
+
         }
     }
 

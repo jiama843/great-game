@@ -25,6 +25,7 @@ public class FinalCheck : MonoBehaviour
         {
             if (isFinished)
             {
+                PlayerPrefs.SetInt("NUM_ENCOUNTERS", 0);
                 switchSc.LoadNextScene();
             }
             else

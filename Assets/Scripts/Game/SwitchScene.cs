@@ -16,7 +16,7 @@ public class SwitchScene : MonoBehaviour
     void Update()
     {
         // Scuffed check for collision since it isn't working
-        CheckExitCondition();
+        //CheckExitCondition();
     }
 
     void CheckExitCondition()
