@@ -83,7 +83,6 @@ public class playerMove : MonoBehaviour
         if (!isTurning) handleMove();
         if (!isMoving) handleTurn();
 
-        
     }
 
     private void handleTurn()
@@ -193,7 +192,6 @@ public class playerMove : MonoBehaviour
     private bool blockedByWall()
     {
         bool blockedAhead = Physics.Raycast(transform.position, transform.forward, out HitInfo, 10f) && forwardInput == 1f;
-        //bool blockedBehind = Physics.Raycast(transform.position, transform.forward * -1, out HitInfo, 10f) && forwardInput == -1f;
         //debug land
         Debug.DrawRay(transform.position, transform.forward * 10f, Color.red); // Forward raycast
         Debug.DrawRay(transform.position, -transform.forward * 10f, Color.blue); // Backward raycast
@@ -203,6 +201,13 @@ public class playerMove : MonoBehaviour
             return false;
         }
 
-        return blockedAhead;
+        bool blockedBehind = Physics.Raycast(transform.position, transform.forward * -1, out HitInfo, 10f) && forwardInput == -1f;
+        if (blockedBehind && HitInfo.collider.CompareTag("Finish"))
+        {
+            Debug.Log("Ray check " + HitInfo.collider.name);
+            return false;
+        }
+
+        return blockedAhead || blockedBehind;
     }
 }

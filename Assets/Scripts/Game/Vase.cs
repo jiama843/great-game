@@ -23,6 +23,7 @@ public class Vase : MonoBehaviour
     private Vector3 playerPosition;
     private Quaternion playerRotation;
 
+    public playerMove moveState;
     private GameObject player;
     public GameObject retunPoint;
     // Start is called before the first frame update
@@ -45,7 +46,7 @@ public class Vase : MonoBehaviour
 
         }
         SpriteCheck();
-        if (Input.GetButtonDown("Interact") && isInteractable) //&& PlayerPrefs.GetInt(requiredItem, 0) > 0 
+        if (Input.GetButtonDown("Interact") && !moveState.isTurning && !moveState.isMoving && isInteractable) //&& PlayerPrefs.GetInt(requiredItem, 0) > 0 
         {
             //game starts
             //not complete yet
@@ -106,4 +107,9 @@ public class Vase : MonoBehaviour
             isInteractable = false;
         }
     }
+
+    // bool PlayerIsMoving(){
+    //     playerMove playerMove = player.GetComponent<playerMove>();
+    //     return playerMove.isMoving || playerMove.isTurning;
+    // }
 }

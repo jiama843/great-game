@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.32014108, g: 0.2586147, b: 0.36836863, a: 1}
+  m_IndirectSpecularColor: {r: 0.3201431, g: 0.25861406, b: 0.3684007, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1609,13 +1609,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interact
       objectReference: {fileID: 0}
+    - target: {fileID: 4185524501781518092, guid: a5c019acbf4cef2478aa1740b3c6edf7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.85025
+      objectReference: {fileID: 0}
     - target: {fileID: 4394366712453910349, guid: a5c019acbf4cef2478aa1740b3c6edf7, type: 3}
       propertyPath: m_Intensity
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4821557352088358183, guid: a5c019acbf4cef2478aa1740b3c6edf7, type: 3}
       propertyPath: turnSpeed
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4821557352088358183, guid: a5c019acbf4cef2478aa1740b3c6edf7, type: 3}
+      propertyPath: walkSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5216781765109968526, guid: a5c019acbf4cef2478aa1740b3c6edf7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1707,6 +1715,17 @@ MonoBehaviour:
   chanceDenominator: 7
   maxEncounters: 2
   numEncounters: 0
+--- !u!114 &276249708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4821557352088358183, guid: a5c019acbf4cef2478aa1740b3c6edf7, type: 3}
+  m_PrefabInstance: {fileID: 276249686}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276249687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb390b9f2e29c4605935ba9f72805336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &283355462
 GameObject:
   m_ObjectHideFlags: 0
@@ -7983,6 +8002,10 @@ PrefabInstance:
       propertyPath: itemID
       value: vase2
       objectReference: {fileID: 0}
+    - target: {fileID: 3348227044856340989, guid: 8ba03832d4069504b91fb53a3080ad80, type: 3}
+      propertyPath: moveState
+      value: 
+      objectReference: {fileID: 276249708}
     - target: {fileID: 3348227044856340989, guid: 8ba03832d4069504b91fb53a3080ad80, type: 3}
       propertyPath: retunPoint
       value: 
@@ -23928,6 +23951,14 @@ PrefabInstance:
       value: vase1
       objectReference: {fileID: 0}
     - target: {fileID: 3348227044856340989, guid: 8ba03832d4069504b91fb53a3080ad80, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1577876292}
+    - target: {fileID: 3348227044856340989, guid: 8ba03832d4069504b91fb53a3080ad80, type: 3}
+      propertyPath: moveState
+      value: 
+      objectReference: {fileID: 276249708}
+    - target: {fileID: 3348227044856340989, guid: 8ba03832d4069504b91fb53a3080ad80, type: 3}
       propertyPath: retunPoint
       value: 
       objectReference: {fileID: 35692866}
@@ -35481,6 +35512,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7274d0ec746296468fe426ea0e3bbb2, type: 3}
+--- !u!1 &1577876292 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3166187821135646021, guid: a5c019acbf4cef2478aa1740b3c6edf7, type: 3}
+  m_PrefabInstance: {fileID: 276249686}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1580600753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 144959111231126813, guid: f1581cbacc76f964c9a710d02428750a, type: 3}
@@ -46626,6 +46662,10 @@ PrefabInstance:
       propertyPath: itemID
       value: chest1
       objectReference: {fileID: 0}
+    - target: {fileID: 2994086151601416213, guid: ee6f779faa0042d4784aafcef660926b, type: 3}
+      propertyPath: moveState
+      value: 
+      objectReference: {fileID: 276249708}
     - target: {fileID: 2994086151601416213, guid: ee6f779faa0042d4784aafcef660926b, type: 3}
       propertyPath: retunPoint
       value: 
