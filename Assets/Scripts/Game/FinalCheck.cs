@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FinalCheck : MonoBehaviour
 {
+    public playerMove moveState;
     public SwitchScene switchSc;
     bool isInteractable = false;
     bool isFinished = false;
@@ -21,7 +22,7 @@ public class FinalCheck : MonoBehaviour
         {
             isFinished = true;
         }
-        if (Input.GetButtonDown("Interact") && isInteractable)
+        if (Input.GetButtonDown("Interact") && !moveState.isTurning && !moveState.isMoving && isInteractable)
         {
             if (isFinished)
             {
