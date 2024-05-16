@@ -46484,6 +46484,10 @@ PrefabInstance:
       value: chest2
       objectReference: {fileID: 0}
     - target: {fileID: 2994086151601416213, guid: ee6f779faa0042d4784aafcef660926b, type: 3}
+      propertyPath: moveState
+      value: 
+      objectReference: {fileID: 276249708}
+    - target: {fileID: 2994086151601416213, guid: ee6f779faa0042d4784aafcef660926b, type: 3}
       propertyPath: retunPoint
       value: 
       objectReference: {fileID: 283355462}
