@@ -26,6 +26,8 @@ public class Vase : MonoBehaviour
     public playerMove moveState;
     private GameObject player;
     public GameObject retunPoint;
+
+    public GameObject interactDialogue;
     // Start is called before the first frame update
     void Start()
     {
@@ -82,8 +84,8 @@ public class Vase : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInteractable = true;
+            interactDialogue.SetActive(!isComplete);
             player = other.gameObject;
-
         }
         
     }
@@ -93,6 +95,7 @@ public class Vase : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInteractable = false;
+            interactDialogue.SetActive(false);
         }
     }
     void SpriteCheck()

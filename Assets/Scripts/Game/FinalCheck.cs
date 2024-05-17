@@ -9,6 +9,7 @@ public class FinalCheck : MonoBehaviour
     bool isInteractable = false;
     bool isFinished = false;
     public TextFade textF;
+    public GameObject interactDialogue;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,8 +44,17 @@ public class FinalCheck : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInteractable = true;
-
+            interactDialogue.SetActive(true);
         }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInteractable = false;
+            interactDialogue.SetActive(false);
+        }
     }
 }
