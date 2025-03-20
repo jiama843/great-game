@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class FinalCheck : MonoBehaviour
 {
+    public playerMove moveState;
     public SwitchScene switchSc;
     bool isInteractable = false;
     bool isFinished = false;
     public TextFade textF;
+    public GameObject interactDialogue;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class FinalCheck : MonoBehaviour
         {
             isFinished = true;
         }
-        if (Input.GetButtonDown("Interact") && isInteractable)
+        if (Input.GetButtonDown("Interact") && !moveState.isTurning && !moveState.isMoving && isInteractable)
         {
             if (isFinished)
             {
@@ -42,8 +44,17 @@ public class FinalCheck : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInteractable = true;
-
+            interactDialogue.SetActive(true);
         }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInteractable = false;
+            interactDialogue.SetActive(false);
+        }
     }
 }

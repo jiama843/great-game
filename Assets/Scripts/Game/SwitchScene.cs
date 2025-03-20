@@ -43,4 +43,11 @@ public class SwitchScene : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
     }
+
+    // Made public so buttons etc can access and use it
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quit!");
+    }
 }

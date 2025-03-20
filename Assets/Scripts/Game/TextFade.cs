@@ -7,6 +7,7 @@ public class TextFade : MonoBehaviour
     public Text textComponent;
     public float fadeDuration = 1.0f;
     public float fadeDelay = 1.0f;
+    public float textDisplayTime = 1.0f;
 
     void Start()
     {
@@ -36,6 +37,8 @@ public class TextFade : MonoBehaviour
             textComponent.color = textColor;
             yield return null;
         }
+
+        yield return new WaitForSeconds(textDisplayTime);
 
         // After fading in, start the fade-out effect
         StartCoroutine(FadeOut());
